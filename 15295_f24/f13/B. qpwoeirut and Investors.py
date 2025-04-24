@@ -7,17 +7,20 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        = not True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
-
+    n = ipt()
+    a = ilist()
+    for i in range(2, n):
+        if (a[i - 1] - a[i - 2]) == a[i] - a[i - 1]:
+            continue
+        if (a[i - 1] - a[i - 2])*(a[i] - a[i - 1]) == -1:
+            continue
+        print(NO)
+        return
+    print(YES)
 #================================================
 
 def main():

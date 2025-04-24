@@ -7,16 +7,36 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        = not True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
+    n,m,k = ivars()
+    grid = [[0] * m for _ in range(n)]
+    start = 0
+    for i in range(n):
+        t = start
+        for j in range(m):
+            grid[i][j] = t
+            t ^= 1
+        start ^= 1
+    ct = 0
+    for i in range(n):
+        for j in range(m):
+            ct += 1^grid[i][j]
+    if k > ct:
+        print(-1)
+        return
+    for i in range(n):
+        if ct == k: break
+        for j in range(m):
+            ct -= 1 ^ grid[i][j]
+            grid[i][j] = 1
+            if ct == k:
+                break
 
-
-
+    for i in grid:
+        print(ljoin(i))
 
 #================================================
 

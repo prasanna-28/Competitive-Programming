@@ -7,17 +7,46 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        = not True
 
+def cross(x1, y1, x2, y2, x3, y3):
+    return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1)
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
-
+    n, m, _, _ = ivars()
+    pegs = [tuple(ivars()) for _ in range(n)]
+    x_line = pegs[0][0]
+    points = [tuple(ivars()) for _ in range(m + 1)]
+    cuts = []
+    for j in range(1, len(points)):
+        x1, y1 = points[j - 1]
+        x2, y2 = points[j]
+        if (x1 < x_line and x2 >= x_line) or (x1 > x_line and x2 <= x_line):
+            above = 0
+            for px, py in pegs:
+                if cross(x1, y1, x2, y2, px, py) > 0:
+                    above += 1
+            if x2 > x_line:
+                above = n - above
+            cuts.append(above)
+    ans = 0
+    for mask in range(1 << n):
+        gap = [0] * (n + 1)
+        g = 0
+        for i in range(n):
+            if mask & (1 << i):
+                g += 1
+            gap[i + 1] = g
+        st = []
+        for c in cuts:
+            r = gap[c]
+            if st and st[-1] == r:
+                st.pop()
+            else:
+                st.append(r)
+        if not st:
+            ans = max(ans, bin(mask)[2:].count("1"))
+    print(ans)
 #================================================
 
 def main():

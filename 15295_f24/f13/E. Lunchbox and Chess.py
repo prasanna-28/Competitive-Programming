@@ -7,19 +7,68 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        =not  True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
+    n, x, y = ivars()
+    dsu = DSU(n)
+    diag_1 = {}
+    diag_2 = {}
+    xs = {}
+    ys = {}
+    for i in range(n):
+        u, v = ivars()
+        if u in xs:
+            dsu.join(i, dsu.find(xs[u]))
+        if v in ys:
+            dsu.join(i, dsu.find(ys[v]))
+        if u + v in diag_1:
+            dsu.join(i, dsu.find(diag_1[u + v]))
+        if u - v in diag_2:
+            dsu.join(i, dsu.find(diag_2[u - v]))
+        xs[u] = dsu.find(i)
+        ys[v] = dsu.find(i)
+        diag_1[u + v] = dsu.find(i)
+        diag_2[u - v] = dsu.find(i)
+    k = set()
+    for i in range(n):
+        k.add(dsu.find(i))
+    t = 0
+    if x in xs or y in ys or x + y in diag_1 or x -y in diag_2:
+        t = 1
+    print(len(k) - t)
 
 #================================================
+class DSU:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.size = [1] * n
+        self.num_sets = n
 
+    def find(self, a):
+        acopy = a
+        while a != self.parent[a]:
+            a = self.parent[a]
+        while acopy != a:
+            self.parent[acopy], acopy = a, self.parent[acopy]
+        return a
+
+    def join(self, a, b):
+        a, b = self.find(a), self.find(b)
+        if a != b:
+            if self.size[a] < self.size[b]:
+                a, b = b, a
+
+            self.num_sets -= 1
+            self.parent[b] = a
+            self.size[a] += self.size[b]
+
+    def set_size(self, a):
+        return self.size[self.find(a)]
+
+    def __len__(self):
+        return self.num_sets
 def main():
     for _ in range(ipt() if MT else 1):
         sol()

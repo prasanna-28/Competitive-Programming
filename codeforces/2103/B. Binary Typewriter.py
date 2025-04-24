@@ -11,12 +11,21 @@ MT        = True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
+    n = ipt()
+    s = input()
+    start = '0'
+    cost = 0
+    for i in s:
+        if i != start:
+            cost += 1
+            start = i
+    if cost == 0:
+        print(n)
+        return
+    if cost in [1, 2]:
+        print(n + 1)
+    else:
+        print(n + cost - 2)
 
 #================================================
 

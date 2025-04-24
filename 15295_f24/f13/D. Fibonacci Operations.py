@@ -7,16 +7,21 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        = not True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
+    s = input()
+    a = list(map(lambda x: ord(x) - 97, s))
+    for i in range(len(a)- 2):
+        while a[i] != 0:
+            a[i] -= 1
+            a[i + 1] -= 1
+            a[i + 2] += 2
+            a[i] = a[i] % 26
+            a[i + 1] = a[i + 1] % 26
+            a[i + 2] = a[i + 2] % 26
+    print(''.join([chr(i + 97) for i in a]))
 
 #================================================
 

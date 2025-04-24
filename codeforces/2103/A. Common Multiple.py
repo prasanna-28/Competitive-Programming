@@ -11,12 +11,8 @@ MT        = True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
+    n = ipt()
+    print(len(set(ilist())))
 
 #================================================
 

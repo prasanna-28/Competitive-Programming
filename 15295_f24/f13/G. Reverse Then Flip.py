@@ -7,16 +7,37 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        =not True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
+    s = input()
+    evens = []
+    odds = []
+    for i in range(len(s)):
+        if i & 1:
+            odds.append(int(s[i]))
+        else:
+            evens.append(int(s[i]))
+    ei = []
+    oi = []
+    for i in range(len(evens)):
+        if evens[i]:
+            ei.append(i)
+    for i in range(len(odds)):
+        if odds[i]:
+            oi.append(i)
+    ei.reverse()
+    oi.reverse()
+    while len(ei) and len(oi):
+        evens[ei.pop()] = 0
+        odds[oi.pop()] = 0
+    if len(ei) and 0 in evens:
+        evens.sort()
+    if len(oi) and 0 in odds:
+        odds.sort()
+    res = [odds[i//2] if i & 1 else evens[i//2] for i in range(len(s))]
+    print(''.join(map(str, res)))
 
 #================================================
 

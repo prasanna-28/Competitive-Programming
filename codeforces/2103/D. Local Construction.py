@@ -11,13 +11,62 @@ MT        = True
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
-
+    n = ipt()
+    a = ilist()
+    res = [0] * n
+    left = 1
+    right = n
+    for i in range(1, max(a) + 1):
+        if i & 1:
+            k = 0
+            while k < n and 0 <= a[k] <= i:
+                if a[k] < i:
+                    k += 1
+                    continue
+                res[k] = right
+                k += 1
+                right -= 1
+            k = n - 1
+            while k >= 0 and 0 <= a[k] <= i:
+                if a[k] < i:
+                    k -= 1
+                    continue
+                res[k] = right
+                k -= 1
+                right -= 1
+            for p in range(n):
+                if res[p] == 0 and a[p] == i:
+                    res[p] = right
+                    right -= 1
+        else:
+            k = 0
+            while k < n and 0 <= a[k] <= i:
+                if a[k] < i:
+                    k += 1
+                    continue
+                res[k] = left
+                k += 1
+                left += 1
+            k = n - 1
+            while k >= 0 and 0 <= a[k] <= i:
+                if a[k] < i:
+                    k -= 1
+                    continue
+                res[k] = left
+                k -= 1
+                left += 1
+            for p in range(n):
+                if res[p] == 0 and a[p] == i:
+                    res[p] = left
+                    left += 1
+    for i in range(n):
+        if a[i] == -1:
+            if left not in res:
+                res[i] = left
+            elif right not in res:
+                res[i] = right
+            break
+    print(ljoin(res))
 #================================================
 
 def main():

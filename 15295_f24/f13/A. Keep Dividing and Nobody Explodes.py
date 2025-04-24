@@ -7,17 +7,21 @@ DEBUG     = False
 INF       = float('inf')
 NINF      = float('-inf')
 YES, NO   = "YES", "NO"
-MT        = True
+MT        = False
 
 #====================Solution====================
 def sol():
-    n, m = ivars()
-    for _ in range(n):
-        l, r = ivars()
-
-
-
-
+    n = ipt()
+    t = (n%3 == 0 and n&1)
+    while n > 1:
+        if n & 1:
+            if n % 3 != 0:
+                print(NO)
+                return
+            n//=3
+        else:
+            n//=2
+    print(YES)
 #================================================
 
 def main():
