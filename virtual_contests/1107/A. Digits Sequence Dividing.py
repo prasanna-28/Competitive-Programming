@@ -1,5 +1,5 @@
 
-import   sys, math
+import sys, math
 finp   = sys.stdin.readline
 MOD    = 10**9 + 7
 njoin  = lambda x: '\n'.join(map(str, x))
@@ -34,6 +34,3 @@ if __name__ == "__main__":
     for _ in range(ipt()): sol()
     #sol()
     pass
-
-
-
