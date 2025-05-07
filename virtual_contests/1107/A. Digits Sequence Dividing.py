@@ -18,7 +18,6 @@ out    = []
 def sol():
     n = ipt()
     s = input()
-
     first = s[0]
     rest = s[1:]
     if int(first) >= int(rest):
