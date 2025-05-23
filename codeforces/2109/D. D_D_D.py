@@ -11,7 +11,35 @@ MT        = True
 
 #====================Solution====================
 def sol():
-    pass
+    n, m, l = ivars()
+    let evensum, oddsum, adj
+    q = deque([1])
+    odds = [-1] * (n + 1)
+    evens = [-1] * (n + 1)
+    odds[1] = 1
+    evens[1] = 0
+    while q:
+        node = q.popleft()
+        for child in adj[node]:
+            for grandchild in adj[child]:
+                if evens[grandchild] == -1:
+                    evens[grandchild] = evens[node] + 2
+                    q.append(grandchild)
+    q = []
+    for i in adj[1]:
+        q.extend(adj[i])
+        odds[i] = 0
+    q = deque(q)
+    while q:
+        node = q.popleft()
+        for child in adj[node]:
+            for grandchild in adj[child]:
+                if odds[grandchild] == -1:
+                    odds[grandchild] = odds[node] + 2
+                    q.append(grandchild)
+
+
+
 
 #================================================
 
