@@ -1,6 +1,6 @@
 https://leetcode.com/u/Pras28/
 
-https://codeforces.com/profile/Prasanna28
+https://codeforces.com/profile/028
 
 https://www.codechef.com/users/prasanna028
 
